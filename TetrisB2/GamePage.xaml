@@ -7,11 +7,10 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White"
-          HorizontalAlignment="Center"
+    <Grid HorizontalAlignment="Left"
           VerticalAlignment="Center"
           Margin="0"
           Padding="0">
-        <Game:GameView HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Game:GameView HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Margin="30, 0, 15, 0"/>
     </Grid>
 </Page>

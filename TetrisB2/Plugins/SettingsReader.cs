@@ -56,6 +56,23 @@ namespace TetrisB2.Plugins
             return 1;
         }
 
+        public static string GetSoundTrackName()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(SettingsPath);
+
+            XmlElement root = doc.DocumentElement;
+
+            if (root.HasChildNodes)
+                foreach (XmlElement elem in root.ChildNodes)
+                    if (elem.Name == "PublicProperties")
+                        if (elem.HasChildNodes)
+                            foreach (XmlElement elem2 in elem.ChildNodes)
+                                if (elem2.Name == "SelectedSoundtrack")
+                                    return elem2.GetAttribute("name").ToString();
+            return "tetris_soundtrack.mp3";
+        }
+
         private static string SettingsPath = "settings.xml";
     }
 }

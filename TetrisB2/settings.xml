@@ -1,6 +1,6 @@
 ﻿<TetrisB2>
 	<PublicProperties>
-
+		<SelectedSoundtrack name="tetris_soundtrack.mp3"></SelectedSoundtrack>
 	</PublicProperties>
 	<PrivateProperties>
 		<Blocks width="50" height="50" ></Blocks>

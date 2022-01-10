@@ -8,6 +8,7 @@
     Loaded="StartGameLoop">
     
     <StackPanel>
+        <MediaElement Name="BackgroundMusic"/>
         <Canvas Name="GameCanvas"> </Canvas>
     </StackPanel>
     

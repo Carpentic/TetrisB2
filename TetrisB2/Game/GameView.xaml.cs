@@ -5,6 +5,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace TetrisB2.Game
 {
@@ -17,6 +18,16 @@ namespace TetrisB2.Game
             Tuple<int, int> GridSize = Plugins.SettingsReader.GetGridSize();
             GameCanvas.Width = CanvasWidth = GridSize.Item1 * BlockSize.Item1;
             GameCanvas.Height = CanvasHeight = GridSize.Item2 * BlockSize.Item2;
+
+            BackgroundMusic.Source = new Uri("ms-appx:///Assets/Sounds/" + Plugins.SettingsReader.GetSoundTrackName());
+
+            m_background = new Image();
+            m_background.Source = new BitmapImage(new Uri("ms-appx:///Assets/grid.png"));
+            m_background.Width = GameCanvas.Width;
+            m_background.Height = GameCanvas.Height;
+            m_background.SetValue(Canvas.LeftProperty, 0);
+            m_background.SetValue(Canvas.TopProperty, 0);
+            GameCanvas.Children.Add(m_background);
 
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
@@ -64,7 +75,7 @@ namespace TetrisB2.Game
                 case VirtualKey.Down:
                     if (!m_speedUp)
                     {
-                        m_engine.SpeedUp(Plugins.SettingsReader.GetRapidFall());
+                        m_engine.SpeedUp(FallSpeed);
                         m_speedUp = true;
                     }
                     break;
@@ -76,7 +87,9 @@ namespace TetrisB2.Game
         public double CanvasWidth { get; set; }
         public double CanvasHeight { get; set; }
 
-        private Engine m_engine;
+        private readonly uint FallSpeed = Plugins.SettingsReader.GetRapidFall();
         private bool m_speedUp;
+        private Image m_background;
+        private Engine m_engine;
     }
 }

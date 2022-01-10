@@ -1,0 +1,8 @@
+﻿<TetrisB2>
+	<PublicProperties>
+
+	</PublicProperties>
+	<PrivateProperties>
+		<Blocks width="50" height="50" ></Blocks>
+	</PrivateProperties>
+</TetrisB2>

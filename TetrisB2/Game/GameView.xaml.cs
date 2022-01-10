@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml.Controls;
 
 namespace TetrisB2.Game
 {
@@ -7,8 +8,9 @@ namespace TetrisB2.Game
         public GameView()
         {
             InitializeComponent();
-            GameCanvas.Width = 10 * 50;
-            GameCanvas.Height = 20 * 50;
+            Tuple<int, int> BlockSize = Plugins.SettingsReader.GetBlocksSize();
+            GameCanvas.Width = 10 * BlockSize.Item1;
+            GameCanvas.Height = 20 * BlockSize.Item2;
 
             Tetrominos.TetrominoGenerator.CreateRandomTetramino().Draw(GameCanvas);
         }

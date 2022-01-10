@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TetrisB2.Game.Blocks;
 using Windows.UI.Xaml.Controls;
 
@@ -9,7 +10,8 @@ namespace TetrisB2.Game.Tetrominos
         public Tetromino()
         {
             m_blocks = new List<Block>(4);
-            CreateBlocks(50, 50);
+            Tuple<int, int> BlockSize = Plugins.SettingsReader.GetBlocksSize();
+            CreateBlocks(BlockSize.Item1, BlockSize.Item2);
         }
         protected abstract void CreateBlocks(int width, int height);
 

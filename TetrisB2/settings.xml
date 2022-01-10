@@ -4,5 +4,6 @@
 	</PublicProperties>
 	<PrivateProperties>
 		<Blocks width="50" height="50" ></Blocks>
+		<GridSize width="10" height="20"></GridSize>
 	</PrivateProperties>
 </TetrisB2>

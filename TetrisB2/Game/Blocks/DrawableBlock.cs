@@ -6,7 +6,7 @@ namespace TetrisB2.Game.Blocks
 {
     public class DrawableBlock : Block
     {
-        public DrawableBlock(int top, int left, int width, int heigth, string name)
+        public DrawableBlock(int heigth, int width, int top, int left, string name)
             : base(top, left, width, heigth)
         {
             m_image = new Image();

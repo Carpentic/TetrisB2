@@ -119,11 +119,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Game\Blocks\DrawableBlock.cs" />
+    <Compile Include="Game\Blocks\Block.cs" />
+    <Compile Include="Game\Engine.cs" />
     <Compile Include="Game\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Game\Blocks\Block.cs" />
     <Compile Include="Game\Tetrominos\InvalidTetromino.cs" />
     <Compile Include="Game\Tetrominos\ITetromino.cs" />
     <Compile Include="Game\Tetrominos\JTetromino.cs" />
@@ -148,6 +152,13 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Blocks\blue_block.png" />
+    <Content Include="Assets\Blocks\cyan_block.png" />
+    <Content Include="Assets\Blocks\green_block.png" />
+    <Content Include="Assets\Blocks\orange_block.png" />
+    <Content Include="Assets\Blocks\purple_block.png" />
+    <Content Include="Assets\Blocks\red_block.png" />
+    <Content Include="Assets\Blocks\yellow_block.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
@@ -156,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Game\GameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,9 +189,7 @@
       <Version>6.2.13</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Blocks\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

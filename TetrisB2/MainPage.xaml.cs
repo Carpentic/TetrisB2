@@ -15,7 +15,7 @@ namespace TetrisB2
 
         private void PlayButtonClicked(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GameView));
+            Frame.Navigate(typeof(GamePage));
         }
 
         private void OptionsButtonClicked(object sender, RoutedEventArgs e)

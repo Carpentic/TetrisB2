@@ -5,5 +5,6 @@
 	<PrivateProperties>
 		<Blocks width="50" height="50" ></Blocks>
 		<GridSize width="10" height="20"></GridSize>
+		<RapidFall speed="10"></RapidFall>
 	</PrivateProperties>
 </TetrisB2>

@@ -1,0 +1,25 @@
+﻿<UserControl
+    x:Class="TetrisB2.GameTotalView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Game="using:TetrisB2.Game"
+    mc:Ignorable="d">
+
+    <Viewbox Stretch="Fill" StretchDirection="Both" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="Game" MaxWidth="530"/>
+                <ColumnDefinition x:Name="UI" Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Game:GameView Grid.Column="0" Margin="15, 0, 15, 0"/>
+            <Image Source="../Assets/tetris_logo.png" Grid.Column="1" Height="200" VerticalAlignment="Top"/>
+            <TextBlock Name="GameStatus" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Top" Height="25" Width="200" Margin="215" />
+            <TextBlock Name="Score" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Top" Height="75" Width="200" Margin="250" FontSize="50"/>
+            <Canvas Name="NextPiece" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="300" Margin="275, 350"></Canvas>
+            <Button Grid.Column="1" Content="Quit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Height="75" Margin="15"/>
+            <Slider Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Margin="15, 15, 130, 35"/>
+            <TextBlock Name="Timer" Grid.Column="1" Text="00:00:00" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="30" Margin="15, 15, 0, 35" />
+        </Grid>
+    </Viewbox>
+</UserControl>

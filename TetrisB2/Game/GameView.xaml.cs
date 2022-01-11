@@ -19,7 +19,7 @@ namespace TetrisB2.Game
             GameCanvas.Width = CanvasWidth = GridSize.Item1 * BlockSize.Item1;
             GameCanvas.Height = CanvasHeight = GridSize.Item2 * BlockSize.Item2;
 
-            BackgroundMusic.Source = new Uri("ms-appx:///Assets/Sounds/" + Plugins.SettingsReader.GetSoundTrackName());
+            //BackgroundMusic.Source = new Uri("ms-appx:///Assets/Sounds/" + Plugins.SettingsReader.GetSoundTrackName());
 
             m_background = new Image();
             m_background.Source = new BitmapImage(new Uri("ms-appx:///Assets/grid.png"));
@@ -41,8 +41,14 @@ namespace TetrisB2.Game
 
         public void DrawTetrominos()
         {
+            NextTetromino.Draw(GameTotalView.NextPieceCanvas);
             ActualTetromino.Draw(GameCanvas);
-            // TODO : Draw next in place : TODO \\
+        }
+
+        public void EraseNextTetromino()
+        {
+            if (GameTotalView.NextPieceCanvas.Children.Count > 0)
+                NextTetromino.Erase(GameTotalView.NextPieceCanvas);
         }
 
         public void DeleteElementFromCanvas(Block b)

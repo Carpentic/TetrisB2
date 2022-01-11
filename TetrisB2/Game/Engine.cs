@@ -57,6 +57,7 @@ namespace TetrisB2.Game
                     m_gameOver = true;
                 else
                 {
+                    m_view.EraseNextTetromino();
                     m_view.ActualTetromino = m_actualTetromino;
                     m_view.NextTetromino = m_nextTetromino;
                     m_view.DrawTetrominos();

@@ -122,6 +122,9 @@
     <Compile Include="GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Game\GameTotalView.xaml.cs">
+      <DependentUpon>GameTotalView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Game\Blocks\DrawableBlock.cs" />
     <Compile Include="Game\Blocks\Block.cs" />
     <Compile Include="Game\Engine.cs" />
@@ -177,6 +180,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Game\GameTotalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

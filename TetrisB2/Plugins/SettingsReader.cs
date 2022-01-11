@@ -73,6 +73,23 @@ namespace TetrisB2.Plugins
             return "tetris_soundtrack.mp3";
         }
 
+        public static uint GetGridResetScore()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(SettingsPath);
+
+            XmlElement root = doc.DocumentElement;
+
+            if (root.HasChildNodes)
+                foreach (XmlElement elem in root.ChildNodes)
+                    if (elem.Name == "PublicProperties")
+                        if (elem.HasChildNodes)
+                            foreach (XmlElement elem2 in elem.ChildNodes)
+                                if (elem2.Name == "GridResetScore")
+                                    return uint.Parse(elem2.GetAttribute("score").ToString());
+            return 50;
+        }
+
         private static string SettingsPath = "settings.xml";
     }
 }

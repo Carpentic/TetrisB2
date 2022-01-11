@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using TetrisB2.Game.Blocks;
@@ -23,8 +24,11 @@ namespace TetrisB2.Game
             m_speedMutex = new Mutex(false);
             m_pauseMutex = new Mutex(false);
 
+            m_timer = new Stopwatch();
+
             m_speed = 1000;
             m_score = 0;
+            m_gridResetScore = Plugins.SettingsReader.GetGridResetScore();
             m_gameOver = false;
             m_isPaused = false;
             m_landedBlocks = new Block[m_rows, m_columns];
@@ -33,36 +37,30 @@ namespace TetrisB2.Game
             m_nextTetromino = TetrominoGenerator.CreateRandomTetramino();
 
             InitAsyncTask();
+            InitTimer();
         }
 
-        public void StartGame() { m_task.Start(); }
-
-        public void TogglePause()
-        {
-            lock (m_pauseMutex)
-            {
-                if (!m_isPaused)
-                    GameTotalView.StatusText.Text = "Status : PAUSED";
-                else
-                    GameTotalView.StatusText.Text = "Status : RUNNING";
-                m_isPaused = !m_isPaused;
-            }
-        }
+        public void StartGame() { m_task.Start(); m_timerTask.Start(); }
 
         private void InitAsyncTask()
         {
             m_task = new Task(async () =>
             {
+                m_timer.Start();
                 while (!m_gameOver)
                 {
                     lock (m_pauseMutex)
                         if (m_isPaused)
                             continue;
 
+                    if (m_score == m_gridResetScore)
+                        await ClearAllRows();
+
                     await CreateNewBlock();
                     await FallDown();
                     ClearCollisions();
                 }
+                m_timer.Stop();
             });
         }
 
@@ -88,6 +86,45 @@ namespace TetrisB2.Game
                 }
             });
         }
+
+        #region Pause
+        public void TogglePause()
+        {
+            lock (m_pauseMutex)
+            {
+                if (!m_isPaused)
+                {
+                    GameTotalView.StatusText.Text = "Status : PAUSED";
+                    m_timer.Stop();
+                }
+                else
+                {
+                    GameTotalView.StatusText.Text = "Status : RUNNING";
+                    m_timer.Start();
+                }
+                m_isPaused = !m_isPaused;
+            }
+        }
+        #endregion
+
+        #region Timer
+        private void InitTimer()
+        {
+            m_timerTask = new Task(async () =>
+            {
+                while (!m_gameOver)
+                    await SetTimerUI();
+            });
+        }
+
+        private async Task SetTimerUI()
+        {
+            await m_dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                GameTotalView.TimerText.Text = string.Format(TimerStringTemplate, m_timer.Elapsed.Hours, m_timer.Elapsed.Minutes, m_timer.Elapsed.Seconds);
+            });
+        }
+        #endregion
 
         #region Speed
         public void SpeedUp(uint dv)
@@ -311,6 +348,21 @@ namespace TetrisB2.Game
                     GameTotalView.ScoreText.Text = "Score : " + m_score.ToString();
                 }
         }
+
+        private async Task ClearAllRows()
+        {
+            await m_dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                lock (m_moveMutex)
+                {
+                    foreach (Block b in m_landedBlocks)
+                        if (b != null)
+                            m_view.DeleteElementFromCanvas(b);
+                    for (uint i = 0; i < m_blocksPerRow.Length; i++)
+                        m_blocksPerRow[i] = 0;
+                }
+            });
+        }
         #endregion
 
         #region Left move
@@ -418,16 +470,18 @@ namespace TetrisB2.Game
         #endregion
 
         private bool m_gameOver, m_leftCollision, m_rightCollision, m_bottomCollison, m_isPaused;
-        private uint m_speed, m_rows, m_columns, m_score;
+        private uint m_speed, m_rows, m_columns, m_score, m_gridResetScore;
         private Tuple<int, int> m_blockSize = Plugins.SettingsReader.GetBlocksSize();
+        private readonly string TimerStringTemplate = "{0}:{1}:{2}";
 
         private Block[,] m_landedBlocks;
         private byte[] m_blocksPerRow;
 
         private readonly Mutex m_moveMutex, m_speedMutex, m_pauseMutex;
+        private readonly Stopwatch m_timer;
 
         private Tetromino m_actualTetromino, m_nextTetromino;
-        private Task m_task;
+        private Task m_task, m_timerTask;
         private GameView m_view;
         private CoreDispatcher m_dispatcher;
     }

@@ -1,6 +1,7 @@
 ﻿<TetrisB2>
 	<PublicProperties>
 		<SelectedSoundtrack name="tetris_soundtrack.mp3"></SelectedSoundtrack>
+		<GridResetScore score="1"></GridResetScore>
 	</PublicProperties>
 	<PrivateProperties>
 		<Blocks width="50" height="50" ></Blocks>

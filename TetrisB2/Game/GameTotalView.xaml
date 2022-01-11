@@ -14,8 +14,8 @@
             </Grid.ColumnDefinitions>
             <Game:GameView Grid.Column="0" Margin="15, 0, 15, 0"/>
             <Image Source="../Assets/tetris_logo.png" Grid.Column="1" Height="200" VerticalAlignment="Top"/>
-            <TextBlock Name="GameStatus" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Top" Height="25" Width="200" Margin="215" />
-            <TextBlock Name="Score" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Top" Height="75" Width="200" Margin="250" FontSize="50"/>
+            <TextBlock Name="GameStatus" Text="Status : RUNNING" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Top" Height="25" Width="200" Margin="215" />
+            <TextBlock Name="Score" Text="Score : 0" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Top" Height="75" Width="350" Margin="250" FontSize="50"/>
             <Canvas Name="NextPiece" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="300" Margin="275, 350"></Canvas>
             <Button Grid.Column="1" Content="Quit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Height="75" Margin="15"/>
             <Slider Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Margin="15, 15, 130, 35"/>

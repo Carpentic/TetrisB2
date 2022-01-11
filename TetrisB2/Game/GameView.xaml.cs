@@ -60,7 +60,7 @@ namespace TetrisB2.Game
         {
             if (args.VirtualKey == VirtualKey.Down)
             {
-                m_engine.SpeedDown(Plugins.SettingsReader.GetRapidFall());
+                m_engine.SpeedDown(FallSpeed);
                 m_speedUp = false;
             }
         }
@@ -84,6 +84,9 @@ namespace TetrisB2.Game
                         m_engine.SpeedUp(FallSpeed);
                         m_speedUp = true;
                     }
+                    break;
+                case VirtualKey.P:
+                    m_engine.TogglePause();
                     break;
             }
         }

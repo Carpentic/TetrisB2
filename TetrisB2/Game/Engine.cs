@@ -14,14 +14,19 @@ namespace TetrisB2.Game
         {
             m_view = view;
             m_dispatcher = dispatcher;
-            m_rows = 20;
-            m_columns = 10;
+
+            Tuple<int, int> GridSize = Plugins.SettingsReader.GetGridSize();
+            m_rows = (uint)GridSize.Item2;
+            m_columns = (uint)GridSize.Item1;
 
             m_moveMutex = new Mutex(false);
             m_speedMutex = new Mutex(false);
+            m_pauseMutex = new Mutex(false);
 
             m_speed = 1000;
+            m_score = 0;
             m_gameOver = false;
+            m_isPaused = false;
             m_landedBlocks = new Block[m_rows, m_columns];
             m_blocksPerRow = new byte[m_rows];
 
@@ -31,7 +36,18 @@ namespace TetrisB2.Game
         }
 
         public void StartGame() { m_task.Start(); }
-        public void TogglePause() { m_isPaused = !m_isPaused; }
+
+        public void TogglePause()
+        {
+            lock (m_pauseMutex)
+            {
+                if (!m_isPaused)
+                    GameTotalView.StatusText.Text = "Status : PAUSED";
+                else
+                    GameTotalView.StatusText.Text = "Status : RUNNING";
+                m_isPaused = !m_isPaused;
+            }
+        }
 
         private void InitAsyncTask()
         {
@@ -39,6 +55,10 @@ namespace TetrisB2.Game
             {
                 while (!m_gameOver)
                 {
+                    lock (m_pauseMutex)
+                        if (m_isPaused)
+                            continue;
+
                     await CreateNewBlock();
                     await FallDown();
                     ClearCollisions();
@@ -50,6 +70,10 @@ namespace TetrisB2.Game
         {
             await m_dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                lock (m_pauseMutex)
+                    if (m_isPaused)
+                        return;
+
                 m_actualTetromino = m_nextTetromino;
                 m_nextTetromino = TetrominoGenerator.CreateRandomTetramino();
                 CheckForBottomCollision();
@@ -173,12 +197,20 @@ namespace TetrisB2.Game
             uint fallingSpeed;
             while (!m_bottomCollison)
             {
+                lock (m_pauseMutex)
+                    if (m_isPaused)
+                        continue;
+
                 lock (m_speedMutex)
                     fallingSpeed = m_speed;
 
                 await Task.Delay((int)fallingSpeed);
                 await m_dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
+                    lock (m_pauseMutex)
+                        if (m_isPaused)
+                            return;
+
                     lock (m_moveMutex)
                     {
                         CheckForBottomCollision();
@@ -250,11 +282,11 @@ namespace TetrisB2.Game
 
         private void ClearRows()
         {
-            for (int row = 0; row < m_gridSize.Item2; row++)
-                if (m_blocksPerRow[row] == m_gridSize.Item1)
+            for (int row = 0; row < m_rows; row++)
+                if (m_blocksPerRow[row] == m_columns)
                 {
                     m_blocksPerRow[row] = 0;
-                    for (int col = 0; col < m_gridSize.Item1; col++)
+                    for (int col = 0; col < m_columns; col++)
                     {
                         Block b = m_landedBlocks[row, col];
                         m_view.DeleteElementFromCanvas(b);
@@ -275,6 +307,8 @@ namespace TetrisB2.Game
                                 }
                             }
                     }
+                    m_score++;
+                    GameTotalView.ScoreText.Text = "Score : " + m_score.ToString();
                 }
         }
         #endregion
@@ -372,7 +406,7 @@ namespace TetrisB2.Game
                     }
                     else
                     {
-                        if ((grid_x + 1) < m_gridSize.Item1 && m_landedBlocks[grid_y, grid_x + 1] != null)
+                        if ((grid_x + 1) < m_columns && m_landedBlocks[grid_y, grid_x + 1] != null)
                         {
                             m_rightCollision = true;
                             break;
@@ -384,14 +418,13 @@ namespace TetrisB2.Game
         #endregion
 
         private bool m_gameOver, m_leftCollision, m_rightCollision, m_bottomCollison, m_isPaused;
-        private uint m_speed, m_rows, m_columns;
+        private uint m_speed, m_rows, m_columns, m_score;
         private Tuple<int, int> m_blockSize = Plugins.SettingsReader.GetBlocksSize();
-        private Tuple<int, int> m_gridSize = Plugins.SettingsReader.GetGridSize();
 
         private Block[,] m_landedBlocks;
         private byte[] m_blocksPerRow;
 
-        private readonly Mutex m_moveMutex, m_speedMutex;
+        private readonly Mutex m_moveMutex, m_speedMutex, m_pauseMutex;
 
         private Tetromino m_actualTetromino, m_nextTetromino;
         private Task m_task;

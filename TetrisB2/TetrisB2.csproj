@@ -167,6 +167,7 @@
     <Content Include="Assets\Logos\StoreLogo.scale-400.png" />
     <Content Include="Assets\Sounds\tetris_soundtrack.mp3" />
     <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\tetris_logo.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="settings.xml" />
   </ItemGroup>

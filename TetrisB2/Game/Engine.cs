@@ -23,6 +23,7 @@ namespace TetrisB2.Game
             m_moveMutex = new Mutex(false);
             m_speedMutex = new Mutex(false);
             m_pauseMutex = new Mutex(false);
+            m_cancellationToken = new CancellationTokenSource();
 
             m_timer = new Stopwatch();
 
@@ -38,6 +39,12 @@ namespace TetrisB2.Game
 
             InitAsyncTask();
             InitTimer();
+        }
+
+        public void Stop()
+        {
+            m_gameOver = true;
+            m_cancellationToken.Cancel();
         }
 
         public void StartGame() { m_task.Start(); m_timerTask.Start(); }
@@ -61,7 +68,7 @@ namespace TetrisB2.Game
                     ClearCollisions();
                 }
                 m_timer.Stop();
-            });
+            }, m_cancellationToken.Token);
         }
 
         private async Task CreateNewBlock()
@@ -69,7 +76,7 @@ namespace TetrisB2.Game
             await m_dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 lock (m_pauseMutex)
-                    if (m_isPaused)
+                    if (m_isPaused || m_gameOver)
                         return;
 
                 m_actualTetromino = m_nextTetromino;
@@ -114,7 +121,7 @@ namespace TetrisB2.Game
             {
                 while (!m_gameOver)
                     await SetTimerUI();
-            });
+            }, m_cancellationToken.Token);
         }
 
         private async Task SetTimerUI()
@@ -479,9 +486,10 @@ namespace TetrisB2.Game
 
         private readonly Mutex m_moveMutex, m_speedMutex, m_pauseMutex;
         private readonly Stopwatch m_timer;
+        private readonly CancellationTokenSource m_cancellationToken;
 
         private Tetromino m_actualTetromino, m_nextTetromino;
-        private Task m_task, m_timerTask;
+        private Task m_task, m_timerTask, m_timerUITask, m_fallTask;
         private GameView m_view;
         private CoreDispatcher m_dispatcher;
     }

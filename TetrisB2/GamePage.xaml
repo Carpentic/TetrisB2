@@ -6,6 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Game="using:TetrisB2"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Game:GameTotalView/>
+    <Grid>
+        <Game:GameTotalView Name="GameWindow"/>
+        <Button Content="Main Menu" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Height="75" Margin="15" Click="ReturnToMainClicked"/>
+    </Grid>
 </Page>

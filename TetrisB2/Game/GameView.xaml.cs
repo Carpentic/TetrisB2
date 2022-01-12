@@ -19,8 +19,6 @@ namespace TetrisB2.Game
             GameCanvas.Width = CanvasWidth = GridSize.Item1 * BlockSize.Item1;
             GameCanvas.Height = CanvasHeight = GridSize.Item2 * BlockSize.Item2;
 
-            //BackgroundMusic.Source = new Uri("ms-appx:///Assets/Sounds/" + Plugins.SettingsReader.GetSoundTrackName());
-
             m_background = new Image();
             m_background.Source = new BitmapImage(new Uri("ms-appx:///Assets/grid.png"));
             m_background.Width = GameCanvas.Width;
@@ -32,6 +30,11 @@ namespace TetrisB2.Game
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             m_engine = new Engine(this, CoreWindow.GetForCurrentThread().Dispatcher);
+        }
+
+        public void Stop()
+        {
+            m_engine.Stop();
         }
 
         private void StartGameLoop(object sender, RoutedEventArgs e)

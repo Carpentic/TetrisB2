@@ -79,6 +79,9 @@ namespace TetrisB2.Game
                     if (m_isPaused || m_gameOver)
                         return;
 
+                lock (m_speedMutex)
+                    m_speed -= 1;
+
                 m_actualTetromino = m_nextTetromino;
                 m_nextTetromino = TetrominoGenerator.CreateRandomTetramino();
                 CheckForBottomCollision();

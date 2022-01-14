@@ -19,7 +19,7 @@
             <Canvas Name="NextPiece" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Height="150" Margin="350, 350"></Canvas>
             <Slider Name="VolumeControl" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Margin="15, 15, 130, 35" ValueChanged="OnVolumeChanged"/>
             <TextBlock Name="Timer" Grid.Column="1" Text="00:00:00" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="30" Margin="15, 15, 0, 35" />
-            <MediaElement Name="BackgroundMusic" />
+            <MediaElement Name="BackgroundMusic"/>
         </Grid>
     </Viewbox>
 </UserControl>

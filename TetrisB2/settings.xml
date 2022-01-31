@@ -3,6 +3,7 @@
 		<SelectedSoundtrack name="tetris_soundtrack.mp3"></SelectedSoundtrack>
 		<Volume volume="10"></Volume>
 		<GridResetScore score="50"></GridResetScore>
+		<Keys left="37" right="39" down="40" rotate="38" pause="80"></Keys>
 	</PublicProperties>
 	<PrivateProperties>
 		<Blocks width="50" height="50" ></Blocks>

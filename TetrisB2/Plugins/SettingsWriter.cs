@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using Windows.System;
 
 namespace TetrisB2.Plugins
 {
@@ -120,6 +121,26 @@ namespace TetrisB2.Plugins
                                     elem2.SetAttribute("volume", newVolume.ToString());
                                     return;
                                 }
+        }
+
+        public static void SetKey(string key, VirtualKey value)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(SettingsPath);
+
+            XmlElement root = doc.DocumentElement;
+
+            if (root.HasChildNodes)
+                foreach (XmlElement elem in root.ChildNodes)
+                    if (elem.Name == "PublicProperties")
+                        if (elem.HasChildNodes)
+                            foreach (XmlElement elem2 in elem.ChildNodes)
+                                if (elem2.Name == "Keys")
+                                {
+                                    elem2.SetAttribute(key, ((uint)value).ToString());
+                                    return;
+                                }
+            return;
         }
 
         private static string SettingsPath = "settings.xml";

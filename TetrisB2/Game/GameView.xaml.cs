@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TetrisB2.Game.Blocks;
 using TetrisB2.Game.Tetrominos;
+using TetrisB2.Plugins;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -81,28 +82,26 @@ namespace TetrisB2.Game
 
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            switch (args.VirtualKey)
+            TetrisKeys keys = SettingsReader.GetKeys();
+            if (keys != null)
+                return;
+
+            if (args.VirtualKey == keys.Left)
+                m_engine.MoveLeft();
+            else if (args.VirtualKey == keys.Right)
+                m_engine.MoveRight();
+            else if (args.VirtualKey == keys.Rotate)
+                m_engine.RotateTetramino();
+            else if (args.VirtualKey == keys.Down)
             {
-                case VirtualKey.Left:
-                    m_engine.MoveLeft();
-                    break;
-                case VirtualKey.Right:
-                    m_engine.MoveRight();
-                    break;
-                case VirtualKey.Up:
-                    m_engine.RotateTetramino();
-                    break;
-                case VirtualKey.Down:
-                    if (!m_speedUp)
-                    {
-                        m_engine.SpeedUp(FallSpeed);
-                        m_speedUp = true;
-                    }
-                    break;
-                case VirtualKey.P:
-                    m_engine.TogglePause();
-                    break;
+                if (!m_speedUp)
+                {
+                    m_engine.SpeedUp(FallSpeed);
+                    m_speedUp = true;
+                }
             }
+            else if (args.VirtualKey == keys.Pause)
+                m_engine.TogglePause();
         }
 
         public Tetromino ActualTetromino { get; set; }

@@ -150,6 +150,7 @@
     <Compile Include="OptionsPage.xaml.cs">
       <DependentUpon>OptionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\TetrisKeys.cs" />
     <Compile Include="Plugins\SettingsReader.cs" />
     <Compile Include="Plugins\SettingsWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

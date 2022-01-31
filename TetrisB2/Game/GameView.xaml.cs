@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TetrisB2.Game.Blocks;
 using TetrisB2.Game.Tetrominos;
 using Windows.System;
@@ -57,6 +58,15 @@ namespace TetrisB2.Game
         public void DeleteElementFromCanvas(Block b)
         {
             b.Erase(GameCanvas);
+        }
+
+        public async Task GameOver()
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                m_engine.Stop();
+                GameOverText.Visibility = Visibility.Visible;
+            });
         }
 
         private void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)

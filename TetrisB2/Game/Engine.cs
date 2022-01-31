@@ -68,6 +68,7 @@ namespace TetrisB2.Game
                     ClearCollisions();
                 }
                 m_timer.Stop();
+                await m_view.GameOver();
             }, m_cancellationToken.Token);
         }
 

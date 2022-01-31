@@ -15,17 +15,17 @@ namespace TetrisB2
 
             VolumeControl.Value = Plugins.SettingsReader.GetSoundVolume();
 
-            NextPieceCanvas = NextPiece;
-            ScoreText = Score;
-            StatusText = GameStatus;
-            TimerText = Timer;
-            s_gameView = FindName("GridUI") as GameView;
+            s_NextPieceCanvas = NextPiece;
+            s_ScoreText = Score;
+            s_StatusText = GameStatus;
+            s_TimerText = Timer;
+            s_GameView = FindName("GridUI") as GameView;
         }
 
         public static void Stop()
         {
-            if (s_gameView != null)
-                s_gameView.Stop();
+            if (s_GameView != null)
+                s_GameView.Stop();
         }
 
         private void OnVolumeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
@@ -33,8 +33,8 @@ namespace TetrisB2
             BackgroundMusic.Volume = VolumeControl.Value / 100;
         }
 
-        private static GameView s_gameView;
-        public static Canvas NextPieceCanvas;
-        public static TextBlock ScoreText, StatusText, TimerText;
+        private static GameView s_GameView;
+        public static Canvas s_NextPieceCanvas;
+        public static TextBlock s_ScoreText, s_StatusText, s_TimerText;
     }
 }

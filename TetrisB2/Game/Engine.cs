@@ -104,12 +104,12 @@ namespace TetrisB2.Game
             {
                 if (!m_isPaused)
                 {
-                    GameTotalView.StatusText.Text = "Status : PAUSED";
+                    GameTotalView.s_StatusText.Text = "Status : PAUSED";
                     m_timer.Stop();
                 }
                 else
                 {
-                    GameTotalView.StatusText.Text = "Status : RUNNING";
+                    GameTotalView.s_StatusText.Text = "Status : RUNNING";
                     m_timer.Start();
                 }
                 m_isPaused = !m_isPaused;
@@ -131,7 +131,7 @@ namespace TetrisB2.Game
         {
             await m_dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                GameTotalView.TimerText.Text = string.Format(TimerStringTemplate, m_timer.Elapsed.Hours, m_timer.Elapsed.Minutes, m_timer.Elapsed.Seconds);
+                GameTotalView.s_TimerText.Text = string.Format(TimerStringTemplate, m_timer.Elapsed.Hours, m_timer.Elapsed.Minutes, m_timer.Elapsed.Seconds);
             });
         }
         #endregion
@@ -355,7 +355,7 @@ namespace TetrisB2.Game
                             }
                     }
                     m_score++;
-                    GameTotalView.ScoreText.Text = "Score : " + m_score.ToString();
+                    GameTotalView.s_ScoreText.Text = "Score : " + m_score.ToString();
                 }
         }
 

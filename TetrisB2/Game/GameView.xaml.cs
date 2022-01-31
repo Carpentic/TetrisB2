@@ -44,14 +44,14 @@ namespace TetrisB2.Game
 
         public void DrawTetrominos()
         {
-            NextTetromino.Draw(GameTotalView.NextPieceCanvas);
+            NextTetromino.Draw(GameTotalView.s_NextPieceCanvas);
             ActualTetromino.Draw(GameCanvas);
         }
 
         public void EraseNextTetromino()
         {
-            if (GameTotalView.NextPieceCanvas.Children.Count > 0)
-                NextTetromino.Erase(GameTotalView.NextPieceCanvas);
+            if (GameTotalView.s_NextPieceCanvas.Children.Count > 0)
+                NextTetromino.Erase(GameTotalView.s_NextPieceCanvas);
         }
 
         public void DeleteElementFromCanvas(Block b)

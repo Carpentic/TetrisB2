@@ -65,7 +65,8 @@ namespace TetrisB2.Game
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 m_engine.Stop();
-                
+                Frame navigationFrame = Window.Current.Content as Frame;
+                navigationFrame.Navigate(typeof(GameOverPage));
             });
         }
 

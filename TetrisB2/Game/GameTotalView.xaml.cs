@@ -33,7 +33,7 @@ namespace TetrisB2
             BackgroundMusic.Volume = VolumeControl.Value / 100;
         }
 
-        public static GameView s_GameView;
+        private static GameView s_GameView;
         public static Canvas s_NextPieceCanvas;
         public static TextBlock s_ScoreText, s_StatusText, s_TimerText;
     }

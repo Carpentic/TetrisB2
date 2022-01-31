@@ -493,7 +493,7 @@ namespace TetrisB2.Game
         private readonly CancellationTokenSource m_cancellationToken;
 
         private Tetromino m_actualTetromino, m_nextTetromino;
-        private Task m_task, m_timerTask, m_timerUITask, m_fallTask;
+        private Task m_task, m_timerTask;
         private GameView m_view;
         private CoreDispatcher m_dispatcher;
     }

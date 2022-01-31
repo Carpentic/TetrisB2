@@ -148,6 +148,7 @@
       <DependentUpon>OptionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\SettingsReader.cs" />
+    <Compile Include="Plugins\SettingsWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

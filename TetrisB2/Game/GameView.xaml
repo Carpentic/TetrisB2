@@ -9,11 +9,6 @@
 
     <StackPanel>
         <Canvas Name="GameCanvas"></Canvas>
-        <TextBlock Name="GameOverText" Text="GAME OVER !" FontSize="125" FontWeight="Bold" Visibility="Collapsed">
-            <TextBlock.RenderTransform>
-                <RotateTransform Angle="45" />
-            </TextBlock.RenderTransform> >
-        </TextBlock>
     </StackPanel>
 
 </UserControl>

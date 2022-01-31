@@ -7,7 +7,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
-        <Game:GameTotalView Name="GameWindow"/>
+        <Game:GameTotalView Name="GameWindow" Margin="0,3,0,-3"/>
         <Button Content="Main Menu" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Height="75" Margin="15" Click="ReturnToMainClicked"/>
     </Grid>
 </Page>

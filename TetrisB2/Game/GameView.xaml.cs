@@ -65,7 +65,7 @@ namespace TetrisB2.Game
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 m_engine.Stop();
-                GameOverText.Visibility = Visibility.Visible;
+                
             });
         }
 

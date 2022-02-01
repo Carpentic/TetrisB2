@@ -123,16 +123,17 @@ namespace TetrisB2.Plugins
                                 if (elem2.Name == "Keys")
                                 {
                                     TetrisKeys res = new TetrisKeys();
-                                    res.Down = (VirtualKey)uint.Parse(elem2.GetAttribute("down").ToString());
-                                    res.Rotate = (VirtualKey)uint.Parse(elem2.GetAttribute("rotate").ToString());
-                                    res.Left = (VirtualKey)uint.Parse(elem2.GetAttribute("left").ToString());
-                                    res.Right = (VirtualKey)uint.Parse(elem2.GetAttribute("right").ToString());
-                                    res.Pause = (VirtualKey)uint.Parse(elem2.GetAttribute("pause").ToString());
+                                    res.Down = (VirtualKey)uint.Parse(elem2.GetAttribute("down"));
+                                    res.Rotate = (VirtualKey)uint.Parse(elem2.GetAttribute("rotate"));
+                                    res.Left = (VirtualKey)uint.Parse(elem2.GetAttribute("left"));
+                                    res.Right = (VirtualKey)uint.Parse(elem2.GetAttribute("right"));
+                                    res.Pause = (VirtualKey)uint.Parse(elem2.GetAttribute("pause"));
                                     return res;
                                 }
             return null;
         }
 
-        private static string SettingsPath = "settings.xml";
+        private static string SettingsPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path + "\\settings.xml";
+        // Folder : %LocalAppData%\Local\Packages\7038ca0f-88e7-4523-9bc4-ac968bf4fdc8_4ezdgcb9e0xaw\LocalState
     }
 }

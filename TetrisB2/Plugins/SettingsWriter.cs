@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Xml;
+using Windows.Storage;
 using Windows.System;
 
 namespace TetrisB2.Plugins
 {
     public class SettingsWriter
     {
-        public static void SetBlocksSize(Tuple<int, int> newSize)
+        public async static void SetBlocksSize(Tuple<int, int> newSize)
         {
+            StorageFile file = await LocalFolder.GetFileAsync(SettingsFileName);
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(SettingsPath);
+            doc.Load(file.Path);
 
             XmlElement root = doc.DocumentElement;
 
@@ -22,14 +25,16 @@ namespace TetrisB2.Plugins
                                 {
                                     elem2.SetAttribute("width", newSize.Item1.ToString());
                                     elem2.SetAttribute("height", newSize.Item2.ToString());
-                                    return;
                                 }
+            doc.Save(file.Path);
         }
 
-        public static void SetGridSize(Tuple<int, int> newSize)
+        public async static void SetGridSize(Tuple<int, int> newSize)
         {
+            StorageFile file = await LocalFolder.GetFileAsync(SettingsFileName);
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(SettingsPath);
+            doc.Load(file.Path);
 
             XmlElement root = doc.DocumentElement;
 
@@ -42,15 +47,16 @@ namespace TetrisB2.Plugins
                                 {
                                     elem2.SetAttribute("width", newSize.Item1.ToString());
                                     elem2.SetAttribute("height", newSize.Item2.ToString());
-                                    return;
                                 }
-
+            doc.Save(file.Path);
         }
 
-        public static void SetRapidFall(uint newSpeed)
+        public async static void SetRapidFall(uint newSpeed)
         {
+            StorageFile file = await LocalFolder.GetFileAsync(SettingsFileName);
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(SettingsPath);
+            doc.Load(file.Path);
 
             XmlElement root = doc.DocumentElement;
 
@@ -60,16 +66,16 @@ namespace TetrisB2.Plugins
                         if (elem.HasChildNodes)
                             foreach (XmlElement elem2 in elem.ChildNodes)
                                 if (elem2.Name == "RapidFall")
-                                {
                                     elem2.SetAttribute("speed", newSpeed.ToString());
-                                    return;
-                                }
+            doc.Save(file.Path);
         }
 
-        public static void SetSoundTrackName(string newSoundTrackName)
+        public async static void SetSoundTrackName(string newSoundTrackName)
         {
+            StorageFile file = await LocalFolder.GetFileAsync(SettingsFileName);
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(SettingsPath);
+            doc.Load(file.Path);
 
             XmlElement root = doc.DocumentElement;
 
@@ -79,16 +85,16 @@ namespace TetrisB2.Plugins
                         if (elem.HasChildNodes)
                             foreach (XmlElement elem2 in elem.ChildNodes)
                                 if (elem2.Name == "SelectedSoundtrack")
-                                {
                                     elem2.SetAttribute("name", newSoundTrackName);
-                                    return;
-                                }
+            doc.Save(file.Path);
         }
 
-        public static void SetGridResetScore(uint newScore)
+        public async static void SetGridResetScore(uint newScore)
         {
+            StorageFile file = await LocalFolder.GetFileAsync(SettingsFileName);
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(SettingsPath);
+            doc.Load(file.Path);
 
             XmlElement root = doc.DocumentElement;
 
@@ -98,16 +104,16 @@ namespace TetrisB2.Plugins
                         if (elem.HasChildNodes)
                             foreach (XmlElement elem2 in elem.ChildNodes)
                                 if (elem2.Name == "GridResetScore")
-                                {
                                     elem2.SetAttribute("score", newScore.ToString());
-                                    return;
-                                }
+            doc.Save(file.Path);
         }
 
-        public static void SetSoundVolume(double newVolume)
+        public async static void SetSoundVolume(double newVolume)
         {
+            StorageFile file = await LocalFolder.GetFileAsync(SettingsFileName);
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(SettingsPath);
+            doc.Load(file.Path);
 
             XmlElement root = doc.DocumentElement;
 
@@ -117,16 +123,16 @@ namespace TetrisB2.Plugins
                         if (elem.HasChildNodes)
                             foreach (XmlElement elem2 in elem.ChildNodes)
                                 if (elem2.Name == "Volume")
-                                {
                                     elem2.SetAttribute("volume", newVolume.ToString());
-                                    return;
-                                }
+            doc.Save(file.Path);
         }
 
-        public static void SetKey(string key, VirtualKey value)
+        public async static void SetKey(string key, VirtualKey value)
         {
+            StorageFile file = await LocalFolder.GetFileAsync(SettingsFileName);
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(SettingsPath);
+            doc.Load(file.Path);
 
             XmlElement root = doc.DocumentElement;
 
@@ -136,13 +142,13 @@ namespace TetrisB2.Plugins
                         if (elem.HasChildNodes)
                             foreach (XmlElement elem2 in elem.ChildNodes)
                                 if (elem2.Name == "Keys")
-                                {
                                     elem2.SetAttribute(key, ((uint)value).ToString());
-                                    return;
-                                }
-            return;
+
+            doc.Save(file.Path);
         }
 
-        private static string SettingsPath = "settings.xml";
+        private static StorageFolder LocalFolder = ApplicationData.Current.LocalFolder;
+        private static string SettingsFileName = "settings.xml";
+        // Folder : %LocalAppData%\Local\Packages\7038ca0f-88e7-4523-9bc4-ac968bf4fdc8_4ezdgcb9e0xaw\LocalState
     }
 }

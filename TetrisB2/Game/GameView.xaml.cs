@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using TetrisB2.Game.Blocks;
 using TetrisB2.Game.Tetrominos;
 using TetrisB2.Plugins;
-using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,6 +27,10 @@ namespace TetrisB2.Game
             m_background.SetValue(Canvas.LeftProperty, 0);
             m_background.SetValue(Canvas.TopProperty, 0);
             GameCanvas.Children.Add(m_background);
+
+            GameKeys = SettingsReader.GetKeys();
+            if (GameKeys == null)
+                throw new NullReferenceException("GameKeys are null in GameView");
 
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
@@ -73,7 +76,7 @@ namespace TetrisB2.Game
 
         private void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)
         {
-            if (args.VirtualKey == VirtualKey.Down)
+            if (args.VirtualKey == GameKeys.Down)
             {
                 m_engine.SpeedDown(FallSpeed);
                 m_speedUp = false;
@@ -82,17 +85,13 @@ namespace TetrisB2.Game
 
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            TetrisKeys keys = SettingsReader.GetKeys();
-            if (keys != null)
-                return;
-
-            if (args.VirtualKey == keys.Left)
+            if (args.VirtualKey == GameKeys.Left)
                 m_engine.MoveLeft();
-            else if (args.VirtualKey == keys.Right)
+            else if (args.VirtualKey == GameKeys.Right)
                 m_engine.MoveRight();
-            else if (args.VirtualKey == keys.Rotate)
+            else if (args.VirtualKey == GameKeys.Rotate)
                 m_engine.RotateTetramino();
-            else if (args.VirtualKey == keys.Down)
+            else if (args.VirtualKey == GameKeys.Down)
             {
                 if (!m_speedUp)
                 {
@@ -100,7 +99,7 @@ namespace TetrisB2.Game
                     m_speedUp = true;
                 }
             }
-            else if (args.VirtualKey == keys.Pause)
+            else if (args.VirtualKey == GameKeys.Pause)
                 m_engine.TogglePause();
         }
 
@@ -109,6 +108,7 @@ namespace TetrisB2.Game
         public double CanvasWidth { get; set; }
         public double CanvasHeight { get; set; }
 
+        private TetrisKeys GameKeys;
         private readonly uint FallSpeed = Plugins.SettingsReader.GetRapidFall();
         private bool m_speedUp;
         private Image m_background;

@@ -2,13 +2,79 @@
     x:Class="TetrisB2.OptionsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TetrisB2"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-
-    </Grid>
+    <StackPanel VerticalAlignment="Center">
+        <StackPanel x:Name="Controls" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border x:Name="Border1" BorderBrush="Gray" BorderThickness="1.5" Margin="5" Height="35" Width="160">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="leftKeyText" Text="X" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <Button x:Name="leftKeySet" Content="Set Move Left" HorizontalAlignment="Stretch" Height="{Binding Height, ElementName=Border1}" Click="LeftKeyChangeRequested"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Border2" BorderBrush="Gray" Margin="5" BorderThickness="1.5" Height="35" Width="160">
+                <Grid x:Name="Grid2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="rightKeyText" Text="X" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <Button x:Name="rightKeySet" Content="Set Move Right" Grid.Column="0" HorizontalAlignment="Stretch" Height="{Binding Height, ElementName=Border2}" Click="RightKeyChangeRequested"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Border3" BorderBrush="Gray" Margin="5" BorderThickness="1.5" Height="35" Width="160">
+                <Grid x:Name="Grid3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="downKeyText" Text="X" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <Button x:Name="downKeySet" Content="Rapid Fall" Grid.Column="0" HorizontalAlignment="Stretch" Height="{Binding Height, ElementName=Border3}" Click="DownKeyChangeRequested"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Border4" BorderBrush="Gray" Margin="5" BorderThickness="1.5" Height="35" Width="160">
+                <Grid x:Name="Grid4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="rotateKeyText" Text="X" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <Button x:Name="rotateKeySet" Content="Rotate" Grid.Column="0" HorizontalAlignment="Stretch" Height="{Binding Height, ElementName=Border4}" Click="RotateKeyChangeRequested"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Border5" BorderBrush="Gray" Margin="5" BorderThickness="1.5" Height="35" Width="160">
+                <Grid x:Name="Grid5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="pauseKeyText" Text="X" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <Button x:Name="pauseKeySet" Content="Pause" Grid.Column="0" HorizontalAlignment="Stretch" Height="{Binding Height, ElementName=Border5}" Click="PauseKeyChangeRequested"/>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <StackPanel Margin="0, 20, 0, 0">
+            <TextBlock Text="Volume" Foreground="White" HorizontalAlignment="Center"/>
+            <Slider Name="VolumeControl" MaxWidth="170" ValueChanged="OnVoulmeChanged"/>
+        </StackPanel>
+        <StackPanel Margin="0, 20, 0, 0">
+            <TextBlock Text="Grid Reset at score :" Foreground="White" HorizontalAlignment="Center"/>
+            <TextBox Name="GridResetScore" MaxWidth="170" Margin="0, 10, 0, 0" BeforeTextChanging="BeforeGridResetScoreChanging" TextChanged="OnGridResetScoreChanged"/>
+        </StackPanel>
+        <StackPanel Margin="0, 20, 0, 0">
+            <TextBlock Text="Selected soundtrack : " Foreground="White" HorizontalAlignment="Center"/>
+            <ComboBox x:Name="SoundtrackList" Width="170" Margin="0, 10, 0, 0" HorizontalAlignment="Center" SelectionChanged="SelectedSoundtrackChanged"/>
+            <Button Name="AddSong" Content="Add soundtrack" Width="170" Margin="0, 10, 0, 0" HorizontalAlignment="Center" MinHeight="25" Click="AddSongClicked"/>
+        </StackPanel>
+        <StackPanel Margin="0, 20, 0, 0">
+            <Button Name="Menu" Content="Main Menu" Width="170" Margin="0, 10, 0, 0" HorizontalAlignment="Center" MinHeight="25" Click="MainMenuClicked"/>
+        </StackPanel>
+    </StackPanel>
 </Page>

@@ -63,6 +63,18 @@ namespace TetrisB2
 
                 await FileIO.WriteBufferAsync(file, buffer);
             }
+
+            try
+            {
+                StorageFolder sounds = await LocalFolder.GetFolderAsync("Sounds");
+                await sounds.GetFileAsync("tetris_soundtrack.mp3");
+            }
+            catch (FileNotFoundException)
+            {
+                StorageFolder folder = await LocalFolder.CreateFolderAsync("Sounds");
+                StorageFile basicFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/tetris_soundtrack.mp3"));
+                await basicFile.CopyAsync(folder);
+            }
         }
         private string XMLTemplate = "<TetrisB2><PublicProperties><SelectedSoundtrack name=\"tetris_soundtrack.mp3\"/><Volume volume=\"0\"/><GridResetScore score=\"50\"/><Keys left=\"37\" right=\"39\" down=\"40\" rotate=\"38\" pause=\"80\"/></PublicProperties><PrivateProperties><Blocks width=\"50\" height=\"50\"/><GridSize width=\"10\" height=\"20\"/><RapidFall speed=\"10\"/></PrivateProperties></TetrisB2>";
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using TetrisB2.Game;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
 namespace TetrisB2
@@ -10,9 +11,7 @@ namespace TetrisB2
         {
             InitializeComponent();
 
-            BackgroundMusic.Source = new Uri("ms-appx:///Assets/Sounds/" + Plugins.SettingsReader.GetSoundTrackName());
-            BackgroundMusic.IsLooping = true;
-
+            SetBackgroundMusic();
             VolumeControl.Value = Plugins.SettingsReader.GetSoundVolume();
 
             s_NextPieceCanvas = NextPiece;
@@ -31,6 +30,17 @@ namespace TetrisB2
         private void OnVolumeChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             BackgroundMusic.Volume = VolumeControl.Value / 100;
+        }
+
+        private async void SetBackgroundMusic()
+        {
+            StorageFolder LocalFolder = ApplicationData.Current.LocalFolder;
+            StorageFolder sounds = await LocalFolder.GetFolderAsync("Sounds");
+            StorageFile file = await sounds.GetFileAsync("tetris_soundtrack.mp3");
+            var stream = await file.OpenAsync(FileAccessMode.Read);
+
+            BackgroundMusic.SetSource(stream, file.ContentType);
+            BackgroundMusic.IsLooping = true;
         }
 
         private static GameView s_GameView;

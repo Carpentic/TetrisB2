@@ -134,6 +134,6 @@ namespace TetrisB2.Plugins
         }
 
         private static string SettingsPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path + "\\settings.xml";
-        // Folder : %LocalAppData%\Local\Packages\7038ca0f-88e7-4523-9bc4-ac968bf4fdc8_4ezdgcb9e0xaw\LocalState
+        // Folder : %LocalAppData%\Packages\7038ca0f-88e7-4523-9bc4-ac968bf4fdc8_4ezdgcb9e0xaw\LocalState
     }
 }

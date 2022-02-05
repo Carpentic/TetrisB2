@@ -36,7 +36,7 @@ namespace TetrisB2
         {
             StorageFolder LocalFolder = ApplicationData.Current.LocalFolder;
             StorageFolder sounds = await LocalFolder.GetFolderAsync("Sounds");
-            StorageFile file = await sounds.GetFileAsync("tetris_soundtrack.mp3");
+            StorageFile file = await sounds.GetFileAsync(Plugins.SettingsReader.GetSoundTrackName());
             var stream = await file.OpenAsync(FileAccessMode.Read);
 
             BackgroundMusic.SetSource(stream, file.ContentType);

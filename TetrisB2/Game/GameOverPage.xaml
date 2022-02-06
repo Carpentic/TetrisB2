@@ -8,11 +8,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <TextBlock x:Name="GameOverText" Text=" GAME OVER !" FontSize="125" FontWeight="Bold" Visibility="Visible" Margin="559,77,-55,730" />
-        <TextBlock x:Name="StopTxt" Text=" Stop !" FontSize="75" Visibility="Visible" Margin="869,731,-211,108" />
-        <TextBlock x:Name="Score" FontSize="75" FontWeight="Bold" Visibility="Visible" Margin="44,345,-3,437" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" />
-        <TextBlock x:Name="Timer" FontSize="75" FontWeight="Bold" Visibility="Visible" Margin="44,549,-3,290" RenderTransformOrigin="0.5,0.5" />
-        <Button x:Name="Stop" Margin="788,703,0,0" VerticalAlignment="Top" Height="155" Width="375" Click="RTM_Clicked" />
-    </Grid>
+    <Viewbox Stretch="Fill" StretchDirection="Both" >
+        <Grid>
+            <TextBlock x:Name="GameOverText" Text=" GAME OVER !" FontSize="125" FontWeight="Bold" Visibility="Visible" Margin="255,108,249,699" />
+            <TextBlock x:Name="Score" FontSize="75" FontWeight="Bold" HorizontalAlignment="Center" Margin="24,353,17,429" RenderTransformOrigin="0.5,0.5" />
+            <TextBlock x:Name="Timer" FontSize="75" FontWeight="Bold" HorizontalAlignment="Center" Margin="12,554,29,285" RenderTransformOrigin="0.5,0.5" />
+            <Button x:Name="Stop" Content="Main Menu" FontSize="60" Margin="486,698,0,0" VerticalAlignment="Top" Height="155" Width="375" Click="RTM_Clicked" />
+        </Grid>
+    </Viewbox>
 </Page>

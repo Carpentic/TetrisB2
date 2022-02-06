@@ -362,7 +362,7 @@ namespace TetrisB2.Game
 
         private async Task ClearAllRows()
         {
-            await m_dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await m_dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
                 lock (m_moveMutex)
                 {
@@ -371,6 +371,9 @@ namespace TetrisB2.Game
                             m_view.DeleteElementFromCanvas(b);
                     for (uint i = 0; i < m_blocksPerRow.Length; i++)
                         m_blocksPerRow[i] = 0;
+                    for (uint i = 0; i < m_rows; i++)
+                        for (uint j = 0; i < m_columns; j++)
+                            m_landedBlocks[i, j] = null;
                 }
             });
         }
